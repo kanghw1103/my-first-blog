@@ -1,22 +1,39 @@
-<html>
-    <head>
-        <title>장고 걸즈 블로그</title>
-    </head>
-    <body>
-        <div>
-            <h1><a href="">Django Girls Blog</a></h1>
-        </div>
+<!DOCTYPE html>
+{% load static %} {# 템플릿 태그로 정적파일을 메모리로 불러들인다는 명령 #}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <title>블로그 글 목록</title>
+</head>
+<body>
+<div class="page-header">
+    <h1><a href="/">장고 걸스 블로그</a></h1>
+</div>
+    <!--장고 템플릿 언어라고 구글링-->
+    {% comment %}
+    {{ posts }} <br><br>  {# 이게 장고 템플릿 변수(변수의 내용을 출력할 때 사용) #}
+    {# 아래 루프 처리 부분이 장고 템플릿 태그 #}
+    {% for post in posts %} {# 여기부터 for루프 시작 #}
+        {{ post }} <br>
+    {% endfor %}            {# 여기까지 for루프 끝 #}
+    {% endcomment %}
 
-        <div>
-            <p>published: 14.06.2014, 12:14</p>
-            <h2><a href="">My first post</a></h2>
-            <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+<div class="content container">
+    <div class="row">
+        <div class="col-md-8">  <!--부트스트랩 그리드 시스템-->
+            {% for post in posts %}
+            <div class="post">
+                <h2><a href="">{{ post.title }}</a></h2>
+                <p>게시일시: {{ post.published_date }}</p>
+                <p>{{ post.text|linebreaksbr }}</p>
+            </div>
+            {% endfor %}
         </div>
-
-        <div>
-            <p>published: 14.06.2014, 12:14</p>
-            <h2><a href="">My second post</a></h2>
-            <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut f.</p>
-        </div>
-    </body>
+    </div>
+</div>
+</body>
 </html>
